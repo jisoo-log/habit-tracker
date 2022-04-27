@@ -1,30 +1,38 @@
-import React, { useState } from "react";
-import Habit, { HabitPropType, THabit } from "./Habit";
+import React from "react";
+import Habit, { THabit } from "./Habit";
 
-const tempHabitArray = [
-  { id: 1, name: "Sleeping", count: 0 },
-  { id: 2, name: "Writing", count: 0 },
-  { id: 3, name: "Hello", count: 0 },
-];
+type HabitsProps = {
+  habits: THabit[];
+  setHabits: (habits: THabit[]) => void;
+};
 
-const Habits = () => {
-  const [habits, setHabits] = useState<HabitPropType[]>(tempHabitArray);
-
+const Habits: React.FC<HabitsProps> = ({ habits, setHabits }) => {
   const handleIncrement = (habit: THabit) => {
-    setHabits([...habits]);
+    const tmpHabits = [...habits];
+    const index = tmpHabits.indexOf(habit);
+    tmpHabits[index].count++;
+    setHabits(tmpHabits);
   };
 
-  const handleDecrement = (habit: THabit) => {};
+  const handleDecrement = (habit: THabit) => {
+    const tmpHabits = [...habits];
+    const index = tmpHabits.indexOf(habit);
+    const count = tmpHabits[index].count - 1;
+    tmpHabits[index].count = count > 0 ? count : 0;
+    setHabits(tmpHabits);
+  };
 
-  const handleDelete = (habit: THabit) => {};
+  const handleDelete = (habit: THabit) => {
+    const tmpHabits = habits.filter((item) => item.id !== habit.id);
+    setHabits(tmpHabits);
+  };
 
   return (
     <ul>
       {habits.map((habit) => (
         <Habit
           key={habit.id}
-          name={habit.name}
-          count={habit.count}
+          habit={habit}
           onIncrement={() => handleIncrement(habit)}
           onDecrement={() => handleDecrement(habit)}
           onDelete={() => handleDelete(habit)}

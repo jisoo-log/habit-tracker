@@ -6,20 +6,25 @@ export type THabit = {
   count: number;
 };
 
-export type HabitPropType = THabit & {
-  onIncrement?: () => void;
-  onDecrement?: () => void;
-  onDelete?: () => void;
+export type HabitPropType = {
+  habit: THabit;
+  onIncrement: (habit: THabit) => void;
+  onDecrement: () => void;
+  onDelete: () => void;
 };
 
-const Habit = (habit: HabitPropType) => {
-  const { name, count, onIncrement, onDecrement, onDelete } = habit;
+const Habit = (props: HabitPropType) => {
+  const { habit, onIncrement, onDecrement, onDelete } = props;
+  const { name, count } = habit;
 
   return (
     <li className="habit">
       <span className="habit-name">{name}</span>
       <span className="habit-count">{count}</span>
-      <button className="habit-button habit-increase" onClick={onIncrement}>
+      <button
+        className="habit-button habit-increase"
+        onClick={() => onIncrement(habit)}
+      >
         <i className="fa-solid fa-square-plus"></i>
       </button>
       <button className="habit-button habit-decrease" onClick={onDecrement}>

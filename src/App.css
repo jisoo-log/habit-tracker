@@ -4,6 +4,39 @@ button {
   cursor: pointer;
 }
 
+.navbar {
+  height: 4rem;
+  padding: 0.5em;
+  margin-bottom: 1rem;
+  background-color: navajowhite;
+}
+
+.title-icon {
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: green;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0.5rem;
+}
+
+.navbar-count {
+  display: inline-block;
+  text-align: center;
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin-left: 0.2em;
+  margin-right: 0.5em;
+  background-color: green;
+  color: white;
+  border-radius: 50%;
+}
+
 .habit {
   font-size: 2.5rem;
   padding: 0.5em;

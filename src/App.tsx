@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./app.css";
 import { THabit } from "./components/Habit";
 import Habits from "./components/Habits";
-import { Input } from "./components/Input";
 import { NavBar } from "./components/NavBar";
 
 const tempHabitArray = [
@@ -13,17 +12,6 @@ const tempHabitArray = [
 
 function App() {
   const [habits, setHabits] = useState<THabit[]>(tempHabitArray);
-
-  const addHabit = (name: string) => {
-    let newId: number;
-    if (habits.length > 0) {
-      newId = (habits[habits.length - 1].id as number) + 1;
-    } else {
-      newId = 1;
-    }
-    const newHabit = { id: newId, name, count: 0 };
-    setHabits([...habits, newHabit]);
-  };
 
   const resetHabit = () => {
     const tmpHabits = habits.map((item) => {
@@ -52,15 +40,26 @@ function App() {
     setHabits(tmpHabits);
   };
 
+  const handleAdd = (name: string) => {
+    // 강의에서는 id: Date.now()로 생성
+    let newId: number;
+    if (habits.length > 0) {
+      newId = (habits[habits.length - 1].id as number) + 1;
+    } else {
+      newId = 1;
+    }
+    setHabits([...habits, { id: newId, name, count: 0 }]);
+  };
+
   return (
     <div>
       <NavBar habitCount={habits.filter((item) => item.count > 0).length} />
-      <Input addHabit={addHabit} />
       <Habits
         habits={habits}
         onIncrement={handleIncrement}
         onDecrement={handleDecrement}
         onDelete={handleDelete}
+        onAdd={handleAdd}
       />
       <button onClick={resetHabit}>Reset All</button>
     </div>

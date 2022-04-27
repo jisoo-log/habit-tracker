@@ -7,6 +7,7 @@ type HabitsProps = {
   onIncrement: (habit: THabit) => void;
   onDecrement: (habit: THabit) => void;
   onDelete: (habit: THabit) => void;
+  onAdd: (name: string) => void;
 };
 
 const Habits: React.FC<HabitsProps> = ({
@@ -14,19 +15,23 @@ const Habits: React.FC<HabitsProps> = ({
   onIncrement,
   onDecrement,
   onDelete,
+  onAdd,
 }) => {
   return (
-    <ul>
-      {habits.map((habit) => (
-        <Habit
-          key={habit.id}
-          habit={habit}
-          onIncrement={() => onIncrement(habit)}
-          onDecrement={() => onDecrement(habit)}
-          onDelete={() => onDelete(habit)}
-        />
-      ))}
-    </ul>
+    <>
+      <HabitAddForm onAdd={onAdd} />
+      <ul>
+        {habits.map((habit) => (
+          <Habit
+            key={habit.id}
+            habit={habit}
+            onIncrement={() => onIncrement(habit)}
+            onDecrement={() => onDecrement(habit)}
+            onDelete={() => onDelete(habit)}
+          />
+        ))}
+      </ul>
+    </>
   );
 };
 

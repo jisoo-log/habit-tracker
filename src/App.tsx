@@ -13,12 +13,6 @@ const tempHabitArray = [
 
 function App() {
   const [habits, setHabits] = useState<THabit[]>(tempHabitArray);
-  const [habitCount, setHabitCount] = useState(0);
-
-  useEffect(() => {
-    const existHabit = habits.filter((item) => item.count > 0);
-    setHabitCount(existHabit.length);
-  }, [habits]);
 
   const addHabit = (name: string) => {
     let newId: number;
@@ -60,7 +54,7 @@ function App() {
 
   return (
     <div>
-      <NavBar habitCount={habitCount} />
+      <NavBar habitCount={habits.filter((item) => item.count > 0).length} />
       <Input addHabit={addHabit} />
       <Habits
         habits={habits}

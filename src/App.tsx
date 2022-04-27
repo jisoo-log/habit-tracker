@@ -20,10 +20,6 @@ function App() {
     setHabitCount(existHabit.length);
   }, [habits]);
 
-  const onHabitsChange = (habits: THabit[]) => {
-    setHabits(habits);
-  };
-
   const addHabit = (name: string) => {
     let newId: number;
     if (habits.length > 0) {
@@ -42,11 +38,36 @@ function App() {
     setHabits(tmpHabits);
   };
 
+  const handleIncrement = (habit: THabit) => {
+    const tmpHabits = [...habits];
+    const index = tmpHabits.indexOf(habit);
+    tmpHabits[index].count++;
+    setHabits(tmpHabits);
+  };
+
+  const handleDecrement = (habit: THabit) => {
+    const tmpHabits = [...habits];
+    const index = tmpHabits.indexOf(habit);
+    const count = tmpHabits[index].count - 1;
+    tmpHabits[index].count = count > 0 ? count : 0;
+    setHabits(tmpHabits);
+  };
+
+  const handleDelete = (habit: THabit) => {
+    const tmpHabits = habits.filter((item) => item.id !== habit.id);
+    setHabits(tmpHabits);
+  };
+
   return (
     <div>
       <NavBar habitCount={habitCount} />
       <Input addHabit={addHabit} />
-      <Habits habits={habits} setHabits={onHabitsChange} />
+      <Habits
+        habits={habits}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+        onDelete={handleDelete}
+      />
       <button onClick={resetHabit}>Reset All</button>
     </div>
   );

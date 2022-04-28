@@ -8,6 +8,7 @@ type HabitsProps = {
   onDecrement: (habit: THabit) => void;
   onDelete: (habit: THabit) => void;
   onAdd: (name: string) => void;
+  onReset: () => void;
 };
 
 const Habits: React.FC<HabitsProps> = ({
@@ -16,6 +17,7 @@ const Habits: React.FC<HabitsProps> = ({
   onDecrement,
   onDelete,
   onAdd,
+  onReset,
 }) => {
   return (
     <>
@@ -31,6 +33,9 @@ const Habits: React.FC<HabitsProps> = ({
           />
         ))}
       </ul>
+      <button className="habits-reset" onClick={onReset}>
+        Reset All
+      </button>
     </>
   );
 };

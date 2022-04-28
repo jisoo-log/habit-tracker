@@ -13,10 +13,16 @@ const tempHabitArray = [
 function App() {
   const [habits, setHabits] = useState<THabit[]>(tempHabitArray);
 
-  const resetHabit = () => {
+  const handleReset = () => {
     const tmpHabits = habits.map((item) => {
       return { ...item, count: 0 };
     });
+
+    // 수업 : habit을 수정하고 리턴해서 훨씬 보기 좋네
+    // const tmpHabits = habits.map((habit) => {
+    //   habit.count = 0;
+    //   return habit;
+    // });
     setHabits(tmpHabits);
   };
 
@@ -51,6 +57,7 @@ function App() {
     setHabits([...habits, { id: newId, name, count: 0 }]);
   };
 
+  console.log("App");
   return (
     <div>
       <NavBar habitCount={habits.filter((item) => item.count > 0).length} />
@@ -60,8 +67,8 @@ function App() {
         onDecrement={handleDecrement}
         onDelete={handleDelete}
         onAdd={handleAdd}
+        onReset={handleReset}
       />
-      <button onClick={resetHabit}>Reset All</button>
     </div>
   );
 }
